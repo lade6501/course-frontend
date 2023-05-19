@@ -1,0 +1,41 @@
+.profile-row {
+  justify-content: center;
+  align-items: center;
+}
+
+.gradient-custom {
+  background: #f6d365;
+
+  background: -webkit-linear-gradient(
+    to right bottom,
+    rgba(246, 211, 101, 1),
+    rgba(253, 160, 133, 1)
+  );
+
+  background: linear-gradient(
+    to right bottom,
+    rgba(246, 211, 101, 1),
+    rgba(253, 160, 133, 1)
+  );
+  border-radius: 50%;
+}
+
+p {
+  font-weight: 300;
+}
+.icon-edit {
+  color: #fff;
+  cursor: pointer;
+}
+
+.icon-edit:hover {
+  transform: scale(1.5);
+  color: white;
+}
+.icon-logout {
+  cursor: pointer;
+}
+.icon-logout:hover {
+  transform: scale(2);
+  color: green;
+}
