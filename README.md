@@ -3,8 +3,7 @@ This is the frontend repo of course project where people can expoler differnet c
 to those coursese.                                                                                                                                       
 I'm using Vite+React framework to build frontend and then running it on docker container.                                                                 
 For backed I'm using NodeJs and for database using mongodb both running  on docker container.                                                             
-View backend repo here  https://github.com/lade6501/course-frontend/ 
-
+View backend repo here https://github.com/lade6501/course-backend
 
 # Some of the core features 
   * View courses
