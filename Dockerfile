@@ -1,7 +1,6 @@
-FROM node 
+FROM node as builder
 WORKDIR /app
-COPY package.json /app
+COPY package.json .
 RUN npm install
-COPY . /app
-EXPOSE 5173
+COPY . .
 CMD ["npm","run","dev"]
