@@ -1,0 +1,19 @@
+#  Multi-stage 
+#     1 . React-Node build
+#     2 . Serving react app on Nginx web server  
+
+#Stage 1
+FROM node as builder
+WORKDIR /app
+COPY package.json .
+RUN npm install
+COPY . .
+RUN npm run build
+
+#Stage 2
+FROM nginx:alpine
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+WORKDIR /usr/share/nginx/html
+RUN rm -rf ./*
+COPY --from=builder /app/dist .
+
