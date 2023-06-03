@@ -14,7 +14,7 @@ pipeline {
     stage('Building image') {
       steps{
         script { 
-           sh  dockerImage= 'docker build -t lade6501/course-frontend --file Dockerfile.production .'
+           sh  dockerImage= docker build -t imagename --file Dockerfile.production .
         }
       }
     }
