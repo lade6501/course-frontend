@@ -14,7 +14,7 @@ pipeline {
     stage('Building image') {
       steps{
         script { 
-           dockerImage = docker build -t imagename --file Dockerfile.production .
+           dockerImage = docker .build -t imagename --file Dockerfile.production
         }
       }
     }
