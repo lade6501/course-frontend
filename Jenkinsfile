@@ -9,7 +9,6 @@ pipeline {
     stage('Cloning Git') {
       steps {
         git([url: 'https://github.com/lade6501/course-frontend.git', branch: 'master', credentialsId: 'git_token'])
-
       }
     }
     stage('Building image') {
@@ -25,12 +24,10 @@ pipeline {
           docker.withRegistry( '', registryCredential ) {
             dockerImage.push("$BUILD_NUMBER")
              dockerImage.push('latest')
-
           }
         }
       }
     }
-
     stage('Remove Unused docker image') {
       steps {
         sh "docker rmi $imagename:$BUILD_NUMBER"
@@ -38,6 +35,5 @@ pipeline {
 
       }
     }
-    
   }
 }
