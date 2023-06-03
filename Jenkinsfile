@@ -15,29 +15,10 @@ pipeline {
     stage('Building image') {
       steps{
         script { 
-           sh  dockerImage= 'docker build  --file Dockerfile.production  -t imagename .'
+           sh  dockerImage= 'docker build -t lade6501/course-frontend --file Dockerfile.production .'
         }
       }
     }
     
-    stage('Deploy Image') {
-      steps{
-        script {
-          docker.withRegistry( '', registryCredential ) {
-            dockerImage.push("$BUILD_NUMBER")
-             dockerImage.push('latest')
-
-          }
-        }
-      }
-    }
-
-    stage('Remove Unused docker image') {
-      steps {
-        sh "docker rmi $imagename:$BUILD_NUMBER"
-         sh "docker rmi $imagename:latest"
-
-      }
-    }
   }
 }
