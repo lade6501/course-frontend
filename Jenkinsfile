@@ -14,7 +14,7 @@ pipeline {
     stage('Building image') {
       steps{
         script { 
-           dockerImage = docker .build -t lade6501/course-frontend --file Dockerfile.production
+           dockerImage = docker.build("lade6501/course-frontend","-f Dockerfile.production .")
         }
       }
     }
