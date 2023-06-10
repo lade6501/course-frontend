@@ -42,6 +42,20 @@ const EnrollFrom = (props) => {
       setSamePass(true);
     }
   }, [cpassword]);
+  
+  const handleLogin = (e) =>{
+    e.preventDefault();
+    axios.post('http://localhost:8080/user/login',{email,password}).then((responnse) => {
+        if(response.statusText === 'OK'){
+          props.hideModal();
+          Swal.fire("Congratulations!",response.message, "success");
+        }
+      
+        if(response.statusText === 'Unauthorized'){
+          Swal.fire("Warning!",response.message, "warning");
+        }
+    })
+  }
   return (
     <>
       {!haveAccount ? (
@@ -193,6 +207,7 @@ const EnrollFrom = (props) => {
                     placeholder="E-mail"
                     data-rule="email"
                     data-msg="Email is required"
+                    onChange ={(e)=> setEmail(e.target.value)}
                   />
                   <div className="validation"></div>
                 </div>
@@ -211,6 +226,7 @@ const EnrollFrom = (props) => {
                     placeholder="********"
                     data-rule="password"
                     data-msg="password is required"
+                    onChange={(e)=> setPassword(e.target.value)}
                   />
                   <div className="validation"></div>
                 </div>
