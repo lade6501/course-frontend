@@ -45,6 +45,9 @@ const EnrollFrom = (props) => {
   
   const handleLogin = (e) =>{
     e.preventDefault();
+    if( !(email && password)){
+       Swal.fire("Warning!",'All input fields are required', "warning");
+    }
     axios.post('http://localhost:8080/user/login',{email,password}).then((responnse) => {
         if(response.statusText === 'OK'){
           props.hideModal();
