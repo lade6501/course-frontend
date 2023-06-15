@@ -50,6 +50,8 @@ const EnrollFrom = (props) => {
     }
     axios.post('http://localhost:8080/user/login',{email,password}).then((responnse) => {
         if(response.statusText === 'OK'){
+          const {authtoken} = response;
+          localStorage.setItem("token", authtoken);
           props.hideModal();
           Swal.fire("Congratulations!",response.message, "success");
         }
