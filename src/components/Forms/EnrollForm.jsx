@@ -3,8 +3,10 @@ import "./EnrollForm.css";
 import PasswordCheck from "./passwordCheck";
 import axios from "axios";
 import Swal from "sweetalert2";
+import {useNavigate} from 'react-router-dom';
 
 const EnrollFrom = (props) => {
+  const navigate = useNavigate();
   const [haveAccount, setHaveAccount] = useState(false);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -32,7 +34,11 @@ const EnrollFrom = (props) => {
     axios.post(backUrl, { user }).then((response) => {
       console.log(response.statusText);
       props.hideModal();
-      Swal.fire("Congratulations!", "You Enrolled Successfully ", "success");
+      Swal.fire("Congratulations!", "You Enrolled Successfully ", "success").then((result)=>{
+        if(result.value){
+          navigate('/profile');
+        }
+      });
     });
   };
   useEffect(() => {
@@ -48,12 +54,15 @@ const EnrollFrom = (props) => {
     if( !(email && password)){
        Swal.fire("Warning!",'All input fields are required', "warning");
     }
-    axios.post('http://localhost:8080/user/login',{email,password}).then((responnse) => {
+    axios.post('http://localhost:8080/user/login',{email,password}).then((response) => {
         if(response.statusText === 'OK'){
-          const {authtoken} = response;
-          localStorage.setItem("token", authtoken);
+          localStorage.setItem("token", response.data.token);
           props.hideModal();
-          Swal.fire("Congratulations!",response.message, "success");
+          Swal.fire("Congratulations!",response.message, "success").then((result)=>{
+            if(result.value){
+              navigate('/profile');
+            }
+            });
         }
       
         if(response.statusText === 'Unauthorized'){
