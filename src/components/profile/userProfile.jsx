@@ -3,6 +3,7 @@ import { Col, Container, Row, Card } from "react-bootstrap";
 import "./userProfile.css";
 import $ from "jquery";
 
+
 const userProfile = () => {
   $(".icon").hover(function () {
     $(this).addClass("fa-beat-fade");
@@ -28,7 +29,6 @@ const userProfile = () => {
                     alt="Avatar"
                     className="my-5"
                     style={{ width: "80px" }}
-                    fluid={true}
                   />
                   <h5>Vishal Lade</h5>
                   <Card.Text style={{ color: "#fff" }}>
