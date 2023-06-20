@@ -32,7 +32,6 @@ const EnrollFrom = (props) => {
     };
 
     axios.post(backUrl, { user }).then((response) => {
-      console.log(response.statusText);
       props.hideModal();
       Swal.fire("Congratulations!", "You Enrolled Successfully ", "success").then((result)=>{
         if(result.value){
@@ -51,22 +50,20 @@ const EnrollFrom = (props) => {
   
   const handleLogin = (e) =>{
     e.preventDefault();
-    if( !(email && password)){
-       Swal.fire("Warning!",'All input fields are required', "warning");
-    }
-    axios.post('http://localhost:8080/user/login',{email,password}).then((response) => {
-        if(response.statusText === 'OK'){
+    axios.post('http://localhost:8000/user/login',{email,password}).then((response) => {
+        if(response.data.message){
           localStorage.setItem("token", response.data.token);
           props.hideModal();
           Swal.fire("Congratulations!",response.message, "success").then((result)=>{
             if(result.value){
-              navigate('/profile');
+              navigate('/profile')
             }
-            });
+          });
         }
       
-        if(response.statusText === 'Unauthorized'){
-          Swal.fire("Warning!",response.message, "warning");
+        if(response.data.error){
+          Swal.fire("Warning!",response.data.error, "warning");
+         
         }
     })
   }
