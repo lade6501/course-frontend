@@ -1,14 +1,21 @@
-import React from "react";
+import React,{useEffect} from "react";
 import { Col, Container, Row, Card } from "react-bootstrap";
 import "./userProfile.css";
 import $ from "jquery";
-
+import Swal from "sweetalert2";
+import {useNavigate} from 'react-router-dom'
 
 const userProfile = () => {
   $(".icon").hover(function () {
     $(this).addClass("fa-beat-fade");
   });
 
+  useEffect(()=>{
+    if(!localStorage.getItem('token')){
+      navigate('/enroll');
+      Swal.fire("Error!", "Please login to view your profile.", "error")
+    }
+  },[])
   return (
     <>
       <Container className="py-5 h-100">
