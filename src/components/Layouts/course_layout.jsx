@@ -20,9 +20,9 @@ const course_layout = () => {
     <>
       <Container>
         <Row className="mt-3">
-          {courses.map((ele) => {
+          {courses.map((ele,index) => {
             return (
-              <Col sm="4" className="mb-5" key={ele.id}>
+              <Col sm="4" className="mb-5" key={index}>
                 <Course course={ele} />
               </Col>
             );

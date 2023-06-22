@@ -243,7 +243,7 @@ const EnrollFrom = (props) => {
                 </div>
               </div>
             </div>
-            <button type="submit" className="button-contact" onClick={(e)=>handleLogin(e)}></button>>
+            <button type="submit" className="button-contact" onClick={(e)=>handleLogin(e)}>
               Login
             </button>
           </form>
