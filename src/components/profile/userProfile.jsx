@@ -1,22 +1,25 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Col, Container, Row, Card } from "react-bootstrap";
 import "./userProfile.css";
 import $ from "jquery";
 import Swal from "sweetalert2";
-import {useNavigate} from 'react-router-dom'
+import { useNavigate, useLocation } from "react-router-dom";
 
 const userProfile = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const [user, setUser] = useState(location.state);
+
   $(".icon").hover(function () {
     $(this).addClass("fa-beat-fade");
   });
 
-  useEffect(()=>{
-    if(!localStorage.getItem('token')){
-      navigate('/enroll');
-      Swal.fire("Error!", "Please login to view your profile.", "error")
+  useEffect(() => {
+    if (!localStorage.getItem("token")) {
+      navigate("/enroll");
+      Swal.fire("Error!", "Please login to view your profile.", "error");
     }
-  },[])
+  }, []);
   return (
     <>
       <Container className="py-5 h-100">
@@ -38,9 +41,9 @@ const userProfile = () => {
                     className="my-5"
                     style={{ width: "80px" }}
                   />
-                  <h5>Vishal Lade</h5>
+                  <h5>{user.name}</h5>
                   <Card.Text style={{ color: "#fff" }}>
-                    Cloud Enthusiat
+                    {user.bioInfo}
                   </Card.Text>
                   <i className="fa-solid fa-user-pen icon-edit"></i>
                 </Col>
@@ -59,11 +62,11 @@ const userProfile = () => {
                     <Row className="pt-1">
                       <Col size="6" className="mb-3">
                         <h6>Email</h6>
-                        <p>lae36501@gmail.com</p>
+                        <p>{user.email}</p>
                       </Col>
                       <Col size="6" className="mb-3">
                         <h6>Phone</h6>
-                        <p>9370180227</p>
+                        <p>{user.phone}</p>
                       </Col>
                     </Row>
 
