@@ -3,7 +3,7 @@ import "./EnrollForm.css";
 import PasswordCheck from "./passwordCheck";
 import axios from "axios";
 import Swal from "sweetalert2";
-import {useNavigate} from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
 const EnrollFrom = (props) => {
   const navigate = useNavigate();
@@ -33,9 +33,13 @@ const EnrollFrom = (props) => {
 
     axios.post(backUrl, { user }).then((response) => {
       props.hideModal();
-      Swal.fire("Congratulations!", "You Enrolled Successfully ", "success").then((result)=>{
-        if(result.value){
-          navigate('/profile');
+      Swal.fire(
+        "Congratulations!",
+        "You Enrolled Successfully ",
+        "success"
+      ).then((result) => {
+        if (result.value) {
+          navigate("/profile");
         }
       });
     });
@@ -47,26 +51,31 @@ const EnrollFrom = (props) => {
       setSamePass(true);
     }
   }, [cpassword]);
-  
-  const handleLogin = (e) =>{
+
+  const handleLogin = (e) => {
     e.preventDefault();
-    axios.post('http://localhost:8000/user/login',{email,password}).then((response) => {
-        if(response.data.message){
+    axios
+      .post("http://localhost:8000/user/login", { email, password })
+      .then((response) => {
+        const { userObj } = response.data;
+        console.log("user", userObj);
+        if (response.data.message) {
           localStorage.setItem("token", response.data.token);
           props.hideModal();
-          Swal.fire("Congratulations!",response.message, "success").then((result)=>{
-            if(result.value){
-              navigate('/profile')
+          Swal.fire("Congratulations!", response.message, "success").then(
+            (result) => {
+              if (result.value) {
+                navigate("/profile", { state: userObj });
+              }
             }
-          });
+          );
         }
-      
-        if(response.data.error){
-          Swal.fire("Warning!",response.data.error, "warning");
-         
+
+        if (response.data.error) {
+          Swal.fire("Warning!", response.data.error, "warning");
         }
-    })
-  }
+      });
+  };
   return (
     <>
       {!haveAccount ? (
@@ -218,7 +227,7 @@ const EnrollFrom = (props) => {
                     placeholder="E-mail"
                     data-rule="email"
                     data-msg="Email is required"
-                    onChange ={(e)=> setEmail(e.target.value)}
+                    onChange={(e) => setEmail(e.target.value)}
                   />
                   <div className="validation"></div>
                 </div>
@@ -237,13 +246,17 @@ const EnrollFrom = (props) => {
                     placeholder="********"
                     data-rule="password"
                     data-msg="password is required"
-                    onChange={(e)=> setPassword(e.target.value)}
+                    onChange={(e) => setPassword(e.target.value)}
                   />
                   <div className="validation"></div>
                 </div>
               </div>
             </div>
-            <button type="submit" className="button-contact" onClick={(e)=>handleLogin(e)}>
+            <button
+              type="submit"
+              className="button-contact"
+              onClick={(e) => handleLogin(e)}
+            >
               Login
             </button>
           </form>
