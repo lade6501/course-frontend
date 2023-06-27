@@ -20,6 +20,10 @@ const userProfile = () => {
       Swal.fire("Error!", "Please login to view your profile.", "error");
     }
   }, []);
+
+  const handlelogout = () =>{
+    localStorage.removeItem("token");
+  }
   return (
     <>
       <Container className="py-5 h-100">
