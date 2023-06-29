@@ -12,6 +12,6 @@ View backend repo here https://github.com/lade6501/course-backend
   * Profile modification 
 
 # Features to be added in near future 
-  * Password check
+  * ~~Password check~~
   * Email verification
   * Ability to watch courses 
