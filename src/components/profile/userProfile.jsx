@@ -59,6 +59,7 @@ const userProfile = () => {
                       title="Logout"
                       data-animation="true"
                       style={{ float: "right" }}
+                      onClick={()=>handlelogout()}
                     ></i>
                     <h6>Info</h6>
                     <hr className="mt-0 mb-4" />
