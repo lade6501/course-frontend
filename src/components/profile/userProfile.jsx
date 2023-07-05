@@ -10,10 +10,6 @@ const userProfile = () => {
   const location = useLocation();
   const [user, setUser] = useState(location.state);
 
-  $(".icon").hover(function () {
-    $(this).addClass("fa-beat-fade");
-  });
-
   useEffect(() => {
     if (!localStorage.getItem("token")) {
       navigate("/enroll");
