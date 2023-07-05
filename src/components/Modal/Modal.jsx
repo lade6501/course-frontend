@@ -1,5 +1,4 @@
 import React, { Children } from "react";
-import CloseButton from "react-bootstrap/CloseButton";
 import "./Modal.css";
 
 const Modal = ({ handleClose, show, children }) => {
