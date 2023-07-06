@@ -180,7 +180,7 @@ const EnrollFrom = (props) => {
                   Phone Number <span>*</span>
                 </p>
                 <span className="icon-case">
-                  <i className="fa-solid fa-envelope"></i>
+                  <i class="fa-solid fa-phone"></i>
                 </span>
                 <input
                   type="number"
