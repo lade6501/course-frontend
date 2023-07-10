@@ -4,11 +4,18 @@ import "./userProfile.css";
 import $ from "jquery";
 import Swal from "sweetalert2";
 import { useNavigate, useLocation } from "react-router-dom";
+import Modal from "../Modal/Modal";
+import ProfileUpdate from "../Forms/ProfileUpdate";
 
 const userProfile = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [user, setUser] = useState(location.state);
+  const [show, setShow] = useState(false);
+
+  const hideModal = () => {
+    setShow(!show);
+  };
 
   useEffect(() => {
     if (!localStorage.getItem("token")) {
@@ -20,9 +27,14 @@ const userProfile = () => {
   const handlelogout = () =>{
     localStorage.removeItem("token");
   }
+
+  const updateProfile = () =>{
+    console.log('In update');
+    hideModal();
+  }
   return (
     <>
-      <Container className="py-5 h-100">
+      {user && <Container className="py-5 h-100">
         <Row className="profile-row h-100">
           <Col lg="6" className="mb-4 mb-lg-0">
             <Card className="mb-3" style={{ borderRadius: ".5rem" }}>
@@ -45,7 +57,7 @@ const userProfile = () => {
                   <Card.Text style={{ color: "#fff" }}>
                     {user.bioInfo}
                   </Card.Text>
-                  <i className="fa-solid fa-user-pen icon-edit"></i>
+                  <i className="fa-solid fa-user-pen icon-edit" onClick={()=>updateProfile()}></i>
                 </Col>
                 <Col md="8">
                   <Card.Body>
@@ -89,7 +101,11 @@ const userProfile = () => {
             </Card>
           </Col>
         </Row>
-      </Container>
+        
+      </Container>}
+      <Modal show={show} handleClose={hideModal}>
+            <ProfileUpdate/>
+      </Modal>
     </>
   );
 };
