@@ -22,7 +22,7 @@ const EnrollFrom = (props) => {
     setCanEnroll(value);
   };
   const handleEnroll = (e) => {
-    const backUrl = "http://localhost:8080/user/addUser";
+    const backUrl = "http://localhost:8000/user/addUser";
     e.preventDefault();
     const user = {
       name,
