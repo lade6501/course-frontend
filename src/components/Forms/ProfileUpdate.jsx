@@ -7,6 +7,22 @@ const ProfileUpdate = () => {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [bioinfo, setBioInfo] = useState("");
 
+  const handleUpdate = () => {
+    const backURL = "http://localhost:8000/user/updateUserByEmail";
+
+    axios
+      .put(
+        backURL,
+        { name: name, phone: phoneNumber, bioInfo: bioinfo },
+        {
+          params: { email: email },
+        }
+      )
+      .then((response) => {
+        console.log("Update response", response);
+      });
+  };
+
   return (
     <>
       <form>
@@ -87,7 +103,11 @@ const ProfileUpdate = () => {
             />
           </div>
         </div>
-        <button type="submit" className="button-contact">
+        <button
+          type="submit"
+          className="button-contact"
+          onClick={() => handleUpdate()}
+        >
           Update
         </button>
       </form>
