@@ -1,12 +1,15 @@
 import React, { useState } from "react";
+import axios from "axios";
 
+const ProfileUpdate = () => {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [bioinfo, setBioInfo] = useState("");
 
-const ProfileUpdate = () =>{
-     const [name, setName] = useState("");
-     const [email, setEmail] = useState("");
-     const [phoneNumber, setPhoneNumber] = useState("");
-     const [bioinfo,setBioInfo] = useState('')
-    return (<> <form>
+  return (
+    <>
+      <form>
         <div className="contentform">
           <div className="form-group">
             <p>
@@ -53,7 +56,7 @@ const ProfileUpdate = () =>{
               Phone Number <span>*</span>
             </p>
             <span className="icon-case">
-            <i class="fa-solid fa-phone"></i>
+              <i class="fa-solid fa-phone"></i>
             </span>
             <input
               type="number"
@@ -71,7 +74,7 @@ const ProfileUpdate = () =>{
               Bio Info <span>*</span>
             </p>
             <span className="icon-case">
-            <i class="fa-solid fa-message"></i>
+              <i class="fa-solid fa-message"></i>
             </span>
             <input
               type="text"
@@ -84,14 +87,12 @@ const ProfileUpdate = () =>{
             />
           </div>
         </div>
-        <button
-          type="submit"
-          className="button-contact"
-          
-        >
+        <button type="submit" className="button-contact">
           Update
         </button>
-      </form></>)
-}
+      </form>
+    </>
+  );
+};
 
 export default ProfileUpdate;
