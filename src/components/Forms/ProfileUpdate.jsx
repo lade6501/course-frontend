@@ -40,8 +40,6 @@ const ProfileUpdate = () => {
               id="name"
               value={name}
               placeholder="Full Name"
-              required={true}
-              data-msg="Name is required"
               onChange={(e) => setName(e.target.value)}
             />
             <div className="validation"></div>
@@ -80,7 +78,6 @@ const ProfileUpdate = () => {
               id="phoneNumber"
               value={phoneNumber}
               placeholder="Enter Phone Number"
-              required={true}
               onChange={(e) => setPhoneNumber(e.target.value)}
             />
           </div>
@@ -98,7 +95,6 @@ const ProfileUpdate = () => {
               id="bioinfo"
               value={bioinfo}
               placeholder="Enter Bio info"
-              required={true}
               onChange={(e) => setBioInfo(e.target.value)}
             />
           </div>
