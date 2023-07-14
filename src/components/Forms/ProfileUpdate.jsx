@@ -1,11 +1,14 @@
 import React, { useState } from "react";
 import axios from "axios";
+import "./ProfileUpdate.css";
 
 const ProfileUpdate = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const [newEmail, setNewEmail] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [bioinfo, setBioInfo] = useState("");
+  const [isChangeEmailSelected, setIsChangeEmailSelected] = useState(false);
 
   const handleUpdate = () => {
     const backURL = "http://localhost:8000/user/updateUserByEmail";
@@ -63,7 +66,37 @@ const ProfileUpdate = () => {
               onChange={(e) => setEmail(e.target.value)}
             />
             <div className="validation"></div>
+            <label for="newEmail" id="newEmailLable">
+              Want to change your email ?
+            </label>
+            <input
+              type="checkbox"
+              id="newEmail"
+              onChange={(e) => setIsChangeEmailSelected(e.target.checked)}
+            />{" "}
           </div>
+
+          {isChangeEmailSelected && (
+            <div className="form-group">
+              <p>
+                New E-mail <span>*</span>
+              </p>
+              <span className="icon-case">
+                <i className="fa-solid fa-envelope"></i>
+              </span>
+              <input
+                type="email"
+                name="newemail"
+                id="newemail"
+                value={newEmail}
+                placeholder="New E-mail"
+                required={true}
+                data-msg="NEw Email is required"
+                onChange={(e) => setNewEmail(e.target.value)}
+              />
+              <div className="validation"></div>
+            </div>
+          )}
 
           <div className="form-group">
             <p>
@@ -101,7 +134,7 @@ const ProfileUpdate = () => {
         </div>
         <button
           type="submit"
-          className="button-contact"
+          className="button-update"
           onClick={() => handleUpdate()}
         >
           Update
