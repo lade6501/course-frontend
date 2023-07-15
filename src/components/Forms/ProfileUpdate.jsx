@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import "./ProfileUpdate.css";
+import Swal from "sweetalert2";
 
 const ProfileUpdate = () => {
   const [name, setName] = useState("");
@@ -13,17 +14,25 @@ const ProfileUpdate = () => {
   const handleUpdate = () => {
     const backURL = "http://localhost:8000/user/updateUserByEmail";
 
-    axios
-      .put(
-        backURL,
-        { name: name, phone: phoneNumber, bioInfo: bioinfo },
-        {
-          params: { email: email },
-        }
-      )
-      .then((response) => {
-        console.log("Update response", response);
-      });
+    if (email === "") {
+      Swal.fire("Warning!", "Email cann't be empty", "warning");
+    } else {
+      axios
+        .put(
+          backURL,
+          {
+            name: name,
+            phone: phoneNumber,
+            bioInfo: bioinfo,
+            isNewEmail: isChangeEmailSelected,
+            newEmail,
+          },
+          {
+            params: { email: email },
+          }
+        )
+        .then((response) => {});
+    }
   };
 
   return (
