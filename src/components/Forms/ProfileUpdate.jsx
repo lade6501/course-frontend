@@ -75,7 +75,7 @@ const ProfileUpdate = () => {
               onChange={(e) => setEmail(e.target.value)}
             />
             <div className="validation"></div>
-            <label for="newEmail" id="newEmailLable">
+            <label htmlFor="newEmail" id="newEmailLable">
               Want to change your email ?
             </label>
             <input
