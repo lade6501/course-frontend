@@ -59,6 +59,7 @@ const userProfile = () => {
                       {user.bioInfo}
                     </Card.Text>
                     <i
+                      title="Update Profile"
                       className="fa-solid fa-user-pen icon-edit"
                       onClick={() => updateProfile()}
                     ></i>

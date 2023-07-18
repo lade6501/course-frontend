@@ -93,3 +93,12 @@ i {
   font-size: 13px;
   color: #de5959;
 }
+#changePassword {
+  padding: none;
+  border: none;
+  background-color: transparent;
+  color: blue;
+}
+#changePassword:hover {
+  border-bottom: 1px solid blue;
+}

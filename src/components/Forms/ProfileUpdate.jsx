@@ -40,9 +40,7 @@ const ProfileUpdate = () => {
       <form>
         <div className="contentform">
           <div className="form-group">
-            <p>
-              Name<span>*</span>
-            </p>
+            <p>Name</p>
             <span className="icon-case">
               <i className="fa-solid fa-person"></i>
             </span>
@@ -108,9 +106,7 @@ const ProfileUpdate = () => {
           )}
 
           <div className="form-group">
-            <p>
-              Phone Number <span>*</span>
-            </p>
+            <p>Phone Number</p>
             <span className="icon-case">
               <i class="fa-solid fa-phone"></i>
             </span>
@@ -125,9 +121,7 @@ const ProfileUpdate = () => {
           </div>
 
           <div className="form-group">
-            <p>
-              Bio Info <span>*</span>
-            </p>
+            <p>Bio Info</p>
             <span className="icon-case">
               <i class="fa-solid fa-message"></i>
             </span>
@@ -139,6 +133,10 @@ const ProfileUpdate = () => {
               placeholder="Enter Bio info"
               onChange={(e) => setBioInfo(e.target.value)}
             />
+          </div>
+          <div>
+            <span>To change your password </span>
+            <button id="changePassword">Click here</button>{" "}
           </div>
         </div>
         <button
