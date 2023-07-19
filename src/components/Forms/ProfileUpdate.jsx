@@ -1,15 +1,24 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "./ProfileUpdate.css";
 import Swal from "sweetalert2";
+import PasswordUpdate from "./PasswordUpdate";
 
-const ProfileUpdate = () => {
+const ProfileUpdate = ({ show }) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [newEmail, setNewEmail] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [bioinfo, setBioInfo] = useState("");
   const [isChangeEmailSelected, setIsChangeEmailSelected] = useState(false);
+  const [isPasswordUpdate, setIsPasswordUpdate] = useState(false);
+
+  //To hide password change screen on modal close
+  useEffect(() => {
+    if (show === false) {
+      setIsPasswordUpdate(false);
+    }
+  }, [show]);
 
   const handleUpdate = () => {
     const backURL = "http://localhost:8000/user/updateUserByEmail";
@@ -37,116 +46,125 @@ const ProfileUpdate = () => {
 
   return (
     <>
-      <form>
-        <div className="contentform">
-          <div className="form-group">
-            <p>Name</p>
-            <span className="icon-case">
-              <i className="fa-solid fa-person"></i>
-            </span>
-            <input
-              type="text"
-              name="name"
-              id="name"
-              value={name}
-              placeholder="Full Name"
-              onChange={(e) => setName(e.target.value)}
-            />
-            <div className="validation"></div>
-          </div>
+      {isPasswordUpdate ? (
+        <PasswordUpdate />
+      ) : (
+        <form>
+          <div className="contentform">
+            <div className="form-group">
+              <p>Name</p>
+              <span className="icon-case">
+                <i className="fa-solid fa-person"></i>
+              </span>
+              <input
+                type="text"
+                name="name"
+                id="name"
+                value={name}
+                placeholder="Full Name"
+                onChange={(e) => setName(e.target.value)}
+              />
+              <div className="validation"></div>
+            </div>
 
-          <div className="form-group">
-            <p>
-              E-mail <span>*</span>
-            </p>
-            <span className="icon-case">
-              <i className="fa-solid fa-envelope"></i>
-            </span>
-            <input
-              type="email"
-              name="email"
-              id="email"
-              value={email}
-              placeholder="E-mail"
-              required={true}
-              data-msg="Email is required"
-              onChange={(e) => setEmail(e.target.value)}
-            />
-            <div className="validation"></div>
-            <label htmlFor="newEmail" id="newEmailLable">
-              Want to change your email ?
-            </label>
-            <input
-              type="checkbox"
-              id="newEmail"
-              onChange={(e) => setIsChangeEmailSelected(e.target.checked)}
-            />{" "}
-          </div>
-
-          {isChangeEmailSelected && (
             <div className="form-group">
               <p>
-                New E-mail <span>*</span>
+                E-mail <span>*</span>
               </p>
               <span className="icon-case">
                 <i className="fa-solid fa-envelope"></i>
               </span>
               <input
                 type="email"
-                name="newemail"
-                id="newemail"
-                value={newEmail}
-                placeholder="New E-mail"
+                name="email"
+                id="email"
+                value={email}
+                placeholder="E-mail"
                 required={true}
-                data-msg="NEw Email is required"
-                onChange={(e) => setNewEmail(e.target.value)}
+                data-msg="Email is required"
+                onChange={(e) => setEmail(e.target.value)}
               />
               <div className="validation"></div>
+              <label htmlFor="newEmail" id="newEmailLable">
+                Want to change your email ?
+              </label>
+              <input
+                type="checkbox"
+                id="newEmail"
+                onChange={(e) => setIsChangeEmailSelected(e.target.checked)}
+              />{" "}
             </div>
-          )}
 
-          <div className="form-group">
-            <p>Phone Number</p>
-            <span className="icon-case">
-              <i class="fa-solid fa-phone"></i>
-            </span>
-            <input
-              type="number"
-              name="phoneNumber"
-              id="phoneNumber"
-              value={phoneNumber}
-              placeholder="Enter Phone Number"
-              onChange={(e) => setPhoneNumber(e.target.value)}
-            />
-          </div>
+            {isChangeEmailSelected && (
+              <div className="form-group">
+                <p>
+                  New E-mail <span>*</span>
+                </p>
+                <span className="icon-case">
+                  <i className="fa-solid fa-envelope"></i>
+                </span>
+                <input
+                  type="email"
+                  name="newemail"
+                  id="newemail"
+                  value={newEmail}
+                  placeholder="New E-mail"
+                  required={true}
+                  data-msg="NEw Email is required"
+                  onChange={(e) => setNewEmail(e.target.value)}
+                />
+                <div className="validation"></div>
+              </div>
+            )}
 
-          <div className="form-group">
-            <p>Bio Info</p>
-            <span className="icon-case">
-              <i class="fa-solid fa-message"></i>
-            </span>
-            <input
-              type="text"
-              name="bioinfo"
-              id="bioinfo"
-              value={bioinfo}
-              placeholder="Enter Bio info"
-              onChange={(e) => setBioInfo(e.target.value)}
-            />
+            <div className="form-group">
+              <p>Phone Number</p>
+              <span className="icon-case">
+                <i class="fa-solid fa-phone"></i>
+              </span>
+              <input
+                type="number"
+                name="phoneNumber"
+                id="phoneNumber"
+                value={phoneNumber}
+                placeholder="Enter Phone Number"
+                onChange={(e) => setPhoneNumber(e.target.value)}
+              />
+            </div>
+
+            <div className="form-group">
+              <p>Bio Info</p>
+              <span className="icon-case">
+                <i class="fa-solid fa-message"></i>
+              </span>
+              <input
+                type="text"
+                name="bioinfo"
+                id="bioinfo"
+                value={bioinfo}
+                placeholder="Enter Bio info"
+                onChange={(e) => setBioInfo(e.target.value)}
+              />
+            </div>
+            <div>
+              <span>To change your password </span>
+              <button
+                id="changePassword"
+                onClick={() => setIsPasswordUpdate(true)}
+              >
+                Click here
+              </button>{" "}
+            </div>
           </div>
-          <div>
-            <span>To change your password </span>
-            <button id="changePassword">Click here</button>{" "}
-          </div>
-        </div>
-        <button
-          type="submit"
-          className="button-update"
-          onClick={() => handleUpdate()}
-        >
-          Update
-        </button>
-      </form>
+          <button
+            type="submit"
+            className="button-update"
+            onClick={() => handleUpdate()}
+          >
+            Update
+          </button>
+        </form>
+      )}
     </>
   );
 };
