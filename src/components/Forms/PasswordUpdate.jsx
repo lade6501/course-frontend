@@ -1,16 +1,29 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import Swal from "sweetalert2";
+import axios from "axios";
 
 const PasswordUpdate = () => {
   const [oldPassword, setOldPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
-  const handlePasswordUpdate = () => {
+  const handlePasswordUpdate = (e) => {
     e.preventDefault();
+    if (oldPassword !== "" && newPassword !== "" && confirmPassword !== "") {
+      if (newPassword !== confirmPassword) {
+        Swal.fire(
+          "Warning!",
+          "New password and confirm new password are not same",
+          "warning"
+        );
+      }
+    } else {
+      Swal.fire("Warning!", "All fields are required!", "warning");
+    }
   };
   return (
     <>
-      <form>
+      <form action="none">
         <div className="contentform">
           <div className="form-group">
             <p>
@@ -22,6 +35,7 @@ const PasswordUpdate = () => {
             <input
               type="password"
               name="oldpassword"
+              value={oldPassword}
               id="oldpassword"
               placeholder="********"
               data-rule="Old password"
@@ -40,6 +54,7 @@ const PasswordUpdate = () => {
             <input
               type="password"
               name="newpassword"
+              value={newPassword}
               id="newpassword"
               placeholder="********"
               data-rule="New password"
@@ -58,6 +73,7 @@ const PasswordUpdate = () => {
             <input
               type="password"
               name="confirmpassword"
+              value={confirmPassword}
               id="confirmpassword"
               placeholder="********"
               data-rule="Confirm password"
