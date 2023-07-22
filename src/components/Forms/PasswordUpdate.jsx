@@ -2,13 +2,14 @@ import React, { useState, useEffect } from "react";
 import Swal from "sweetalert2";
 import axios from "axios";
 
-const PasswordUpdate = () => {
+const PasswordUpdate = ({ email }) => {
   const [oldPassword, setOldPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
   const handlePasswordUpdate = (e) => {
     e.preventDefault();
+    const backURL = "http://localhost:8000/user/passwordChange";
     if (oldPassword !== "" && newPassword !== "" && confirmPassword !== "") {
       if (newPassword !== confirmPassword) {
         Swal.fire(
@@ -16,6 +17,25 @@ const PasswordUpdate = () => {
           "New password and confirm new password are not same",
           "warning"
         );
+      } else {
+        axios
+          .put(backURL, {
+            email,
+            newpassword: newPassword,
+            oldpassword: oldPassword,
+          })
+          .then((response) => {
+            if (response.status === 200) {
+              Swal.fire("Success", `${response.data.message}`, "question");
+            }
+            if (response.status === 401) {
+              Swal.fire(
+                "Error!",
+                "Old password is wrong please check!",
+                "error"
+              );
+            }
+          });
       }
     } else {
       Swal.fire("Warning!", "All fields are required!", "warning");
