@@ -1,12 +1,18 @@
 import React, { useState, useEffect } from "react";
 import Swal from "sweetalert2";
 import axios from "axios";
+import PasswordCheck from "./passwordCheck";
 
 const PasswordUpdate = ({ email }) => {
   const [oldPassword, setOldPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [showPassCheck, setShowPassCheck] = useState(false);
+  const [canUpdate, setUpdate] = useState(false);
 
+  const passwordCheck = (value) => {
+    setUpdate(value);
+  };
   const handlePasswordUpdate = (e) => {
     e.preventDefault();
     const backURL = "http://localhost:8000/user/passwordChange";
@@ -80,7 +86,15 @@ const PasswordUpdate = ({ email }) => {
               data-rule="New password"
               data-msg="New password is required"
               onChange={(e) => setNewPassword(e.target.value)}
+              onFocusCapture={() => setShowPassCheck(true)}
+              onBlur={() => setShowPassCheck(false)}
             />
+            {showPassCheck ? (
+              <PasswordCheck
+                password={newPassword}
+                passwordCheck={passwordCheck}
+              />
+            ) : null}
           </div>
 
           <div className="form-group">
