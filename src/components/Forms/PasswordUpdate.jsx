@@ -23,6 +23,12 @@ const PasswordUpdate = ({ email }) => {
           "New password and confirm new password are not same",
           "warning"
         );
+      } else if (!canUpdate) {
+        Swal.fire(
+          "Warning!",
+          "Password does not meet specified requirement",
+          "warning"
+        );
       } else {
         axios
           .put(backURL, {
@@ -33,13 +39,6 @@ const PasswordUpdate = ({ email }) => {
           .then((response) => {
             if (response.status === 200) {
               Swal.fire("Success", `${response.data.message}`, "question");
-            }
-            if (response.status === 401) {
-              Swal.fire(
-                "Error!",
-                "Old password is wrong please check!",
-                "error"
-              );
             }
           });
       }
