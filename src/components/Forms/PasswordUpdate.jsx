@@ -38,7 +38,12 @@ const PasswordUpdate = ({ email }) => {
           })
           .then((response) => {
             if (response.status === 200) {
-              Swal.fire("Success", `${response.data.message}`, "question");
+              Swal.fire("Success", `${response.data.message}`, "success");
+            }
+          })
+          .catch((error) => {
+            if (error.response.status === 401) {
+              Swal.fire("Error", error.response.data.error, "error");
             }
           });
       }
