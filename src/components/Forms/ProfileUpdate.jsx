@@ -4,7 +4,7 @@ import "./ProfileUpdate.css";
 import Swal from "sweetalert2";
 import PasswordUpdate from "./PasswordUpdate";
 
-const ProfileUpdate = ({ show, useremail }) => {
+const ProfileUpdate = ({ show, useremail, hideModal }) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [newEmail, setNewEmail] = useState("");
@@ -47,7 +47,7 @@ const ProfileUpdate = ({ show, useremail }) => {
   return (
     <>
       {isPasswordUpdate ? (
-        <PasswordUpdate email={useremail} />
+        <PasswordUpdate email={useremail} hideModal={hideModal} />
       ) : (
         <form>
           <div className="contentform">

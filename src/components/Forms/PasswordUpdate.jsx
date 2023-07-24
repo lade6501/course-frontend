@@ -3,7 +3,7 @@ import Swal from "sweetalert2";
 import axios from "axios";
 import PasswordCheck from "./passwordCheck";
 
-const PasswordUpdate = ({ email }) => {
+const PasswordUpdate = ({ email, hideModal }) => {
   const [oldPassword, setOldPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -38,7 +38,13 @@ const PasswordUpdate = ({ email }) => {
           })
           .then((response) => {
             if (response.status === 200) {
-              Swal.fire("Success", `${response.data.message}`, "success");
+              Swal.fire("Success", `${response.data.message}`, "success").then(
+                (result) => {
+                  if (result.value) {
+                    hideModal();
+                  }
+                }
+              );
             }
           })
           .catch((error) => {

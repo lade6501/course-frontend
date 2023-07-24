@@ -109,7 +109,11 @@ const userProfile = () => {
         </Container>
       )}
       <Modal show={show} handleClose={hideModal}>
-        <ProfileUpdate show={show} useremail={user.email} />
+        <ProfileUpdate
+          show={show}
+          useremail={user.email}
+          hideModal={hideModal}
+        />
       </Modal>
     </>
   );
