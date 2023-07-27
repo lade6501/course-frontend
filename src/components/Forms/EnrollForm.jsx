@@ -5,7 +5,7 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 
-const EnrollFrom = (props) => {
+const EnrollFrom = ({ hideModal }) => {
   const navigate = useNavigate();
   const [haveAccount, setHaveAccount] = useState(false);
   const [name, setName] = useState("");
@@ -32,7 +32,7 @@ const EnrollFrom = (props) => {
     };
 
     axios.post(backUrl, { user }).then((response) => {
-      props.hideModal();
+      hideModal();
       Swal.fire(
         "Congratulations!",
         "You Enrolled Successfully ",
@@ -58,10 +58,9 @@ const EnrollFrom = (props) => {
       .post("http://localhost:8000/user/login", { email, password })
       .then((response) => {
         const { userObj } = response.data;
-        console.log("user", userObj);
         if (response.data.message) {
           localStorage.setItem("token", response.data.token);
-          props.hideModal();
+          hideModal();
           Swal.fire("Congratulations!", response.message, "success").then(
             (result) => {
               if (result.value) {
