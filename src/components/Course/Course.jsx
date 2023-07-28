@@ -3,20 +3,28 @@ import { Card, Button, Dropdown } from "react-bootstrap";
 import "./Course.css";
 import Modal from "../Modal/Modal";
 import EnrollFrom from "../Forms/EnrollForm";
+import axios from "axios";
 
 const Course = ({ course }) => {
   const [show, setShow] = useState(false);
   const [selectedCourse, setSelectedCourse] = useState();
 
   const hideModal = () => {
-    if (show === true) {
-      setSelectedCourse({});
-    } else {
-      setSelectedCourse(course);
-    }
     setShow(!show);
   };
 
+  const handleEnroll = () => {
+    if (localStorage.getItem("token")) {
+      const backUrl = "http://localhost:8000/user/addCourse";
+      axios
+        .put(backUrl, { email: "user.wrong@test.com", course })
+        .then((response) => {
+          console.log("Update response course ", response);
+        });
+    } else {
+      setShow(true);
+    }
+  };
   return (
     <>
       <Card className="course-card" key={course.id}>
@@ -37,7 +45,7 @@ const Course = ({ course }) => {
           <Button
             className="enroll-button"
             variant="primary"
-            onClick={() => hideModal()}
+            onClick={() => handleEnroll()}
           >
             Enroll
           </Button>
