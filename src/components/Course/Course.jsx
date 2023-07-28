@@ -4,23 +4,23 @@ import "./Course.css";
 import Modal from "../Modal/Modal";
 import EnrollFrom from "../Forms/EnrollForm";
 import axios from "axios";
+import Swal from "sweetalert2";
 
 const Course = ({ course }) => {
   const [show, setShow] = useState(false);
-  const [selectedCourse, setSelectedCourse] = useState();
 
   const hideModal = () => {
     setShow(!show);
   };
 
   const handleEnroll = () => {
+    const user = localStorage.getItem("user");
+
     if (localStorage.getItem("token")) {
       const backUrl = "http://localhost:8000/user/addCourse";
-      axios
-        .put(backUrl, { email: "user.wrong@test.com", course })
-        .then((response) => {
-          console.log("Update response course ", response);
-        });
+      axios.put(backUrl, { email: user.email, course }).then((response) => {
+        Swal.fire("Congratulations!", response.message, "success");
+      });
     } else {
       setShow(true);
     }
