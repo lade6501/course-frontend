@@ -53,7 +53,7 @@ const Course = ({ course }) => {
       </Card>
       <main>
         <Modal show={show} handleClose={hideModal}>
-          <EnrollFrom hideModal={hideModal} course={selectedCourse} />
+          <EnrollFrom hideModal={hideModal} course={course} />
         </Modal>
       </main>
     </>
