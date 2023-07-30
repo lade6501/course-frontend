@@ -5,7 +5,7 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 
-const EnrollFrom = ({ hideModal }) => {
+const EnrollFrom = ({ hideModal, course }) => {
   const navigate = useNavigate();
   const [haveAccount, setHaveAccount] = useState(false);
   const [name, setName] = useState("");
@@ -21,8 +21,9 @@ const EnrollFrom = ({ hideModal }) => {
   const passwordCheck = (value) => {
     setCanEnroll(value);
   };
-  const handleEnroll = (e) => {
-    const backUrl = "http://localhost:8000/user/addUser";
+  const handleEnroll = async (e) => {
+    const userUrl = "http://localhost:8000/user/addUser";
+    const courseURL = "http://localhost:8000/user/addCourse";
     e.preventDefault();
     const user = {
       name,
@@ -31,19 +32,24 @@ const EnrollFrom = ({ hideModal }) => {
       phone: parseInt(phoneNumber),
     };
 
-    axios.post(backUrl, { user }).then((response) => {
-      hideModal();
-      Swal.fire(
-        "Congratulations!",
-        "You Enrolled Successfully ",
-        "success"
-      ).then((result) => {
-        if (result.value) {
-          navigate("/profile");
+    try {
+      const response = await axios.post(userUrl, { user });
+      if (response.status === 200) {
+        const res = await axios.put(courseURL, { email, course });
+        if (res.status === 200) {
+          hideModal();
+          Swal.fire(
+            "Congratulations!",
+            "You Enrolled Successfully ",
+            "success"
+          );
         }
-      });
-    });
+      }
+    } catch (error) {
+      Swal.fire("Error!", "Please try again! ", "error");
+    }
   };
+
   useEffect(() => {
     if (cpassword.trim === password.trim) {
       setSamePass(false);
