@@ -58,28 +58,30 @@ const EnrollFrom = ({ hideModal, course }) => {
     }
   }, [cpassword]);
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
-    axios
-      .post("http://localhost:8000/user/login", { email, password })
-      .then((response) => {
-        const { userObj } = response.data;
-        if (response.data.message) {
-          localStorage.setItem("token", response.data.token);
+    const loginULR = "http://localhost:8000/user/login";
+    const courseURL = "http://localhost:8000/user/addCourse";
+
+    try {
+      const response = await axios.post(loginULR, { email, password });
+      if (response.status === 200) {
+        const { userObj, token } = response.data;
+        localStorage.setItem("token", token);
+        localStorage.setItem("user", JSON.stringify(userObj));
+        const res = await axios.put(courseURL, { email, course });
+        if (res.status === 200) {
           hideModal();
-          Swal.fire("Congratulations!", response.message, "success").then(
-            (result) => {
-              if (result.value) {
-                navigate("/profile", { state: userObj });
-              }
-            }
+          Swal.fire(
+            "Congratulations!",
+            "You Enrolled Successfully ",
+            "success"
           );
         }
-
-        if (response.data.error) {
-          Swal.fire("Warning!", response.data.error, "warning");
-        }
-      });
+      }
+    } catch (error) {
+      Swal.fire("Error", "Please try again!", "error");
+    }
   };
   return (
     <>
@@ -185,7 +187,7 @@ const EnrollFrom = ({ hideModal, course }) => {
                   Phone Number <span>*</span>
                 </p>
                 <span className="icon-case">
-                  <i class="fa-solid fa-phone"></i>
+                  <i className="fa-solid fa-phone"></i>
                 </span>
                 <input
                   type="number"

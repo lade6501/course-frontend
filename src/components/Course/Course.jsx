@@ -14,8 +14,7 @@ const Course = ({ course }) => {
   };
 
   const handleEnroll = () => {
-    const user = localStorage.getItem("user");
-
+    const user = JSON.parse(localStorage.getItem("user"));
     if (localStorage.getItem("token")) {
       const backUrl = "http://localhost:8000/user/addCourse";
       axios.put(backUrl, { email: user.email, course }).then((response) => {
