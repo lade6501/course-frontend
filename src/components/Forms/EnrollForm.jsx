@@ -66,17 +66,21 @@ const EnrollFrom = ({ hideModal, course }) => {
     try {
       const response = await axios.post(loginULR, { email, password });
       if (response.status === 200) {
-        const { userObj, token } = response.data;
+        const { token } = response.data;
         localStorage.setItem("token", token);
-        localStorage.setItem("user", JSON.stringify(userObj));
         const res = await axios.put(courseURL, { email, course });
         if (res.status === 200) {
+          localStorage.setItem("user", JSON.stringify(res.data.user));
           hideModal();
           Swal.fire(
             "Congratulations!",
             "You Enrolled Successfully ",
             "success"
-          );
+          ).then((result) => {
+            if (result.value) {
+              navigate("/profile");
+            }
+          });
         }
       }
     } catch (error) {
