@@ -10,7 +10,7 @@ import ProfileUpdate from "../Forms/ProfileUpdate";
 const userProfile = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const [user, setUser] = useState(location.state);
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")));
   const [show, setShow] = useState(false);
 
   const hideModal = () => {
