@@ -87,19 +87,29 @@ const userProfile = () => {
                           <p>{user.phone}</p>
                         </Col>
                       </Row>
-
                       <h6>Courses</h6>
                       <hr className="mt-0 mb-4" />
                       <Row className="pt-1">
                         <Col size="6" className="mb-3">
                           <h6>Enrolled</h6>
-                          <p>Lorem ipsum</p>
                         </Col>
                         <Col size="6" className="mb-3">
                           <h6>Progress</h6>
-                          <p>50%</p>
                         </Col>
                       </Row>
+
+                      {user?.courses.map((course, index) => {
+                        return (
+                          <Row className="pt-1" key={index}>
+                            <Col size="6" className="mb-3">
+                              <p>{course.name}</p>
+                            </Col>
+                            <Col size="6" className="mb-3">
+                              <p>50%</p>
+                            </Col>
+                          </Row>
+                        );
+                      })}
                     </Card.Body>
                   </Col>
                 </Row>
