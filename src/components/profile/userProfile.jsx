@@ -25,7 +25,7 @@ const userProfile = () => {
   }, []);
 
   const handlelogout = () => {
-    localStorage.removeItem("token");
+    localStorage.clear();
     navigate("/enroll");
   };
 
